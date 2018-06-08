@@ -10,9 +10,6 @@ class UsersTable(DatabaseTable):
         id = int | primary_key
         name = str
 
-        def __str__(self):
-            return "User " + super().__str__()
-
 # UsersTable().delete()
 # UsersTable().create().insert([
 #     User(0, "test"),

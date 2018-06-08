@@ -34,6 +34,13 @@ class TableEntry(metaclass=_TableEntry):
         return klass(*row)
 
     @classmethod
+    def clone(klass, other):
+        return klass(other.tolist())
+
+    def __copy__(self):
+        return self.__class__.clone(self)
+
+    @classmethod
     def fromDict(klass, dct):
         return klass(*tuple(
             dct.get(i.name, DefaultArg) for i in self.description
@@ -54,7 +61,7 @@ class TableEntry(metaclass=_TableEntry):
             i += 1
 
     def __str__(self):
-        res = "{ " + ', '.join("{}: {}"
+        res = self.__class__.__name__ + " { " + ', '.join("{}: {}"
                 .format(i.name, getattr(self, i.name))
                 for i in self.description
             ) + " }"
