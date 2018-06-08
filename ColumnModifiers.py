@@ -42,7 +42,7 @@ class Order:
     Ascending = "ASC"
     Descending = "DESC"
 
-conflict = Anontator.map()
+conflict = Anontator.map("ON CONFLICT")
 constraint = Annotator.map("CONSTRAINT")
 primary_key = Annotator("PRIMARY KEY")
 autoincrement = Annotator("AUTOINCREMENT")
