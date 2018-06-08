@@ -12,8 +12,15 @@ class Annotator:
             self.origin = other
         return self
 
+    def __ror__(self, other):
+        if isinstance(other, Annotator):
+            self.mod += other.mod
+        else:
+            self.origin = other
+        return self
+
     @classmethod
-    def map(cls, name):
+    def map(cls, name=None):
         return lambda *args: cls(name, *args)
 
 def annotate_all(cls):
@@ -35,6 +42,7 @@ class Order:
     Ascending = "ASC"
     Descending = "DESC"
 
+conflict = Anontator.map()
 constraint = Annotator.map("CONSTRAINT")
 primary_key = Annotator("PRIMARY KEY")
 autoincrement = Annotator("AUTOINCREMENT")

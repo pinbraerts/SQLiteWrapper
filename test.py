@@ -7,14 +7,14 @@ class UsersTable(DatabaseTable):
     TABLE_NAME = "users"
 
     class User(TableEntry):
-        id = primary_key | int
+        id = int | primary_key
         name = str
 
         def __str__(self):
             return "User " + super().__str__()
 
-# UsersTable().deleteTable()
-# UsersTable().createTableIfNotExists().insert([
+# UsersTable().delete()
+# UsersTable().create().insert([
 #     User(0, "test"),
 #     User(1, "test1")
 # ])

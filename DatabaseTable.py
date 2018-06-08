@@ -11,7 +11,7 @@ class DatabaseTable:
     SELECT_ALL = "select * from "
     INSERT_INTO = "insert into {} values ({})"
 
-    def createTable(self, check_not_exist=True):
+    def create(self, check_not_exist=True):
         self.connection.execute(
             self.CREATE_IF +
             (self.IF_NOT_EXISTS if check_not_exist else "") +
@@ -23,7 +23,7 @@ class DatabaseTable:
         self.connection.commit()
         self.connection.close()
 
-    def deleteTableIfExists(self, check_if_exists=True):
+    def delete(self, check_if_exists=True):
         self.connection.execute(
             self.DELETE_IF +
             (self.IF_EXISTS if check_if_exists else "") +
@@ -54,7 +54,9 @@ class DatabaseTable:
         self.connection = sqlite3.connect(self.DATABASE_NAME)
         self.connection.row_factory = self.ENTRY_TYPE.fromColumnRow
 
-    def insert(self, items):
+    def insert(self, *items):
+        if len(items) == 1:
+            items = items[0]
         if _iterable(items):
             self.connection.executemany(
                 self.INSERT_INTO.format(
@@ -70,7 +72,7 @@ class DatabaseTable:
         return self
 
     def __enter__(self):
-        return self
+        return self.create()
 
     def __exit__(self, type, value, traceback):
         self.close()
