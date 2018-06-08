@@ -27,18 +27,16 @@ class ColumnType:
         return self._SQLITE2TYPE[t.upper()]
 
     def __init__(self, name, datatype=None, arguments=None):
-        if datatype is None:
-            datatype = ColumnType.DEFAULT_DATA_TYPE
         if isinstance(datatype, str):
             datatype, *arguments = datatype.split()
             arguments = ' '.join(arguments)
             datatype = self.SQLite2type(datatype)
         elif isinstance(datatype, Annotator):
             datatype, arguments = datatype.origin, datatype.mod
-            if datatype is None:
-                raise ArgumentError  # TODO: add message
         if arguments is None:
             arguments = ""
+        if datatype is None:
+            datatype = ColumnType.DEFAULT_DATA_TYPE
         self.arguments = arguments
         self.datatype = datatype
         self.sqltype = self.type2SQLite(datatype)
