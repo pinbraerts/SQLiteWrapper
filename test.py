@@ -10,6 +10,7 @@ class UsersTable(DatabaseTable):
         id = int | primary_key
         name = str
 
+
 # UsersTable().delete()
 # UsersTable().create().insert([
 #     User(0, "test"),

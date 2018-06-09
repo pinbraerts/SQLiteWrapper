@@ -1,4 +1,5 @@
-from utils import _clb
+from utils import callable
+
 
 class Annotator:
     def __init__(self, *mod):
@@ -23,11 +24,13 @@ class Annotator:
     def map(cls, name=None):
         return lambda *args: cls(name, *args)
 
+
 def annotate_all(cls):
     for i, j in cls.__dict__.items():
-        if not i.startswith('_') and not _clb(i):
+        if not i.startswith('_') and not callable(i):
             setattr(cls, i, Annotator(j))
     return cls
+
 
 @annotate_all
 class Conflict:
@@ -37,10 +40,12 @@ class Conflict:
     Ignore = "IGNORE"
     Replace = "REPLACE"
 
+
 @annotate_all
 class Order:
     Ascending = "ASC"
     Descending = "DESC"
+
 
 conflict = Anontator.map("ON CONFLICT")
 constraint = Annotator.map("CONSTRAINT")

@@ -2,7 +2,8 @@ import sqlite3
 
 from ColumnType import ColumnType
 
-from utils import _clb, DefaultArg
+from utils import callable, DefaultArg
+
 
 class _TableEntry(type):
     @property
@@ -10,7 +11,7 @@ class _TableEntry(type):
         if cls._itemsd is None:
             cls._itemsd = tuple(
                 ColumnType(i, j) for i, j in cls.__dict__.items()
-                    if not i.startswith('_') and not _clb(i)
+                if not i.startswith('_') and not callable(i)
             )
         return cls._itemsd
 
@@ -61,10 +62,10 @@ class TableEntry(metaclass=_TableEntry):
             i += 1
 
     def __str__(self):
-        res = self.__class__.__name__ + " { " + ', '.join("{}: {}"
-                .format(i.name, getattr(self, i.name))
-                for i in self.description
-            ) + " }"
+        res = self.__class__.__name__ + " { " + ', '.join(
+            "{}: {}".format(i.name, getattr(self, i.name))
+            for i in self.description
+        ) + " }"
         return res
 
     def __repr__(self):

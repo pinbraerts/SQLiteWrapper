@@ -1,5 +1,6 @@
-NoneType = None.__class__
 from ColumnModifiers import *
+NoneType = None.__class__
+
 
 class ColumnType:
     DEFAULT_DATA_TYPE = "INTEGER"

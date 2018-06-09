@@ -2,10 +2,12 @@ from types import FunctionType
 
 DefaultArg = object()
 
-def _clb(f):
+
+def callable(f):
     return hasattr(f, "__call__") or isinstance(f, FunctionType)
 
-def _iterable(x):
+
+def iterable(x):
     try:
         _ = (i for i in x)
     except TypeError:

@@ -1,6 +1,7 @@
 import sqlite3
 
-from utils import _iterable
+from utils import iterable
+
 
 class DatabaseTable:
     CREATE_IF = "create table "
@@ -57,7 +58,7 @@ class DatabaseTable:
     def insert(self, *items):
         if len(items) == 1:
             items = items[0]
-        if _iterable(items):
+        if iterable(items):
             self.connection.executemany(
                 self.INSERT_INTO.format(
                     self.TABLE_NAME, self.ENTRY_TYPE.ITEMS_PLACEHOLDER
