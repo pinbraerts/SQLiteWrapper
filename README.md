@@ -43,13 +43,12 @@ table.close()
 ```
 
 ## Autofill
-- `__init__`, `__str__`, `__repr__` and `__copy__` methods
+- `__init__`, `__str__`, `__repr__` and `__copy__` methods for `MyEntry`
 
 - factory methods for constructing from **sqlite3** `Column-Row` pair,
-`tuple` (or just `Row`) and dictionary (or `JSON` object)
-are created automatically for MyEntry.
+`tuple` (or just `Row`) and dictionary (or `JSON` object) for `MyEntry`
 
-- nested `MyTable` class is detected automatically.
+- nested `MyEntry` class is detected automatically.
 
 
 ## Column Modifiers
